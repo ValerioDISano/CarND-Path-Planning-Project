@@ -8,6 +8,9 @@
 #include "helpers.h"
 #include "json.hpp"
 
+#include "behavior_planner.hpp"
+#include "trajectory_planner.hpp"
+
 // for convenience
 using nlohmann::json;
 using std::string;
@@ -22,6 +25,8 @@ int main() {
   vector<double> map_waypoints_s;
   vector<double> map_waypoints_dx;
   vector<double> map_waypoints_dy;
+  
+  constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
   // Waypoint map to read from
   string map_file_ = "../data/highway_map.csv";
