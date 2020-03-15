@@ -4,6 +4,8 @@
 #include <math.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <pair>
 
 // for convenience
 using std::string;
@@ -153,5 +155,36 @@ vector<double> getXY(double s, double d, const vector<double> &maps_s,
 
   return {x,y};
 }
+
+template <typename T>
+bool isContained(const T& x, const T& L, const T& H) inline
+{
+    return (x > L && x <= H);
+}
+
+namespace Car
+{
+    std::unordered_map<unsigned int, std::pair<double, double> lane_boundaries {
+        {0, {0.0, 4.0}},
+        {1, {4.0, 8.0}},
+        {2, {8.0, 12.0}}
+    };
+
+    int fromFrenet2LaneId(const double& d)
+    {
+        int laneId;
+        
+        if (isContained(d, lane_boundaries[0].first, lane_boundaries[0].second))
+          laneId = 0;
+        else if (isContained(d, lane_boundaries[1].first, lane_boundaries[1].second))
+          laneId = 1;
+        else if (isContained(d, lane_boundaries[2].first, lane_boundaries[2].second)) 
+          laneId = 2;
+        else
+          laneId = -1;
+
+        return laneId;
+    }
+} // Car namespace
 
 #endif  // HELPERS_H
