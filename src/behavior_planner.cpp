@@ -31,6 +31,30 @@ Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_dat
                     break;
         }
     }
-
+    
+    this->last_prediction = pred;
     return pred;
-}   
+}
+
+void VehicleConfiguration::computeBehavior()
+{
+    int current_lane = conf().currentLane();
+    // target lane
+    if (this->last_prediction.car_ahead)
+    // evaluate a takeover
+        if (current_lane > 0 && !this->last_prediction.car_on_left)
+        {   // Left
+            conf().currentLane()--;        
+        } else if (current_lane < 2 && !this->last_prediction.car_on_right)
+        {   // Right
+            conf().currentLane()++;        
+        }
+
+    } else if (conf().currentSpeed() < conf().maxSpeed())  // evaluate to speedup
+    {
+       conf().speedUp(); 
+    } else
+    {
+        conf().slowDown();
+    }
+}

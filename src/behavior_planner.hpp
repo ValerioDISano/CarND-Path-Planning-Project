@@ -22,7 +22,9 @@ class BehaviorPlanner
           inline const double& currentS() const {return this->car_s_;}
           inline const double& currentD() const {return this->car_d_;}
           inline const int& currentLane() const {return this->lane_;}
-
+          
+          void SpeedUp() {this->planned_speedup += this->max_acc_;}
+          void SlowDown() {this->planned_speedup -= this->max_acc_;}
           void updateCarFrenetCoord(const double& s, const double& d)
           {
               this->car_s_ = s;
@@ -42,6 +44,8 @@ class BehaviorPlanner
 
           double car_s_;
           double car_d_;
+          double planned_speedup {0.0};
+          double current_speed {0.0};
           int lane_;
     };
 
@@ -57,9 +61,10 @@ class BehaviorPlanner
     
     template <class SensorFusion>
     Prediction predictionStep(const SensorFusion& sensor_fusion_data);
-
+    
+    void computeBehavior() const;
   private:
-
+    Prediction last_prediction;
 };
 
 #endif
