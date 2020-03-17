@@ -31,6 +31,17 @@ class BehaviorPlanner
               this->car_d_ = d;
           }
 
+          void updateCarPose(
+                    const double& x,
+                    const double& y,
+                    const double& yaw
+                  )
+          {
+            this->car_x_ = x;
+            this->car_y_ = y;
+            this->car_yaw_ = car_yaw_;
+          }
+
           static VehicleConfiguration& instance()
           {
             static VehicleConfiguration conf {};
@@ -44,6 +55,9 @@ class BehaviorPlanner
 
           double car_s_;
           double car_d_;
+          double car_x_;
+          double car_y_;
+          double car_yaw_;
           double planned_speedup {0.0};
           double current_speed {0.0};
           int lane_;
