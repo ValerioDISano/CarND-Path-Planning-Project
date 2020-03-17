@@ -36,7 +36,7 @@ Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_dat
     return pred;
 }
 
-void VehicleConfiguration::computeBehavior()
+void BehaviorPlanner::computeBehavior()
 {
     int current_lane = conf().currentLane();
     // target lane
