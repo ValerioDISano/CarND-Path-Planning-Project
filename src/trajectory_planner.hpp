@@ -3,6 +3,9 @@
 
 #include <vector>
 
+#include "spline.h"
+#include "behavior_planner.hpp"
+
 using double_vec = std::vector<double>
 constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
