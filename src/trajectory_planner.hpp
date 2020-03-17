@@ -4,6 +4,7 @@
 #include <vector>
 
 using double_vec = std::vector<double>
+constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
 class TrajectoryPlanner
 {
@@ -20,6 +21,8 @@ class TrajectoryPlanner
                 map_waypoints_s_ {map_waypoints_s},
                 n_pts_ {n_pts}
     {;}
+
+    void setNextWaypoints();
 
   private:
     double_vec ref_pts_x;
