@@ -3,8 +3,6 @@
 
 #include "helpers.h"
 
-constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
-
 class BehaviorPlanner
 {
   public:
@@ -24,7 +22,7 @@ class BehaviorPlanner
           inline const int& currentLane() const {return this->lane_;}
           inline const double& targetX() const {return this->target_x_;}
           inline const double& currentSpeed() const {return this->current_speed_;}
-          inline const double& currentYaw() const {return this->current_yaw_;}
+          inline const double& currentYaw() const {return this->car_yaw_;}
           
           void SpeedUp() {this->planned_speedup_ += this->max_acc_;}
           void SlowDown() {this->planned_speedup_ -= this->max_acc_;}
@@ -42,7 +40,7 @@ class BehaviorPlanner
           {
             this->car_x_ = x;
             this->car_y_ = y;
-            this->car_yaw_ = car_yaw_;
+            this->car_yaw_ = yaw;
           }
 
           static VehicleConfiguration& instance()
