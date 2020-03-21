@@ -9,7 +9,6 @@
 #include "behavior_planner.hpp"
 
 using double_vec = std::vector<double>;
-using vector_pair = std::pair<double_vec, double_vec>;
 constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
 class TrajectoryPlanner
@@ -29,11 +28,13 @@ class TrajectoryPlanner
     {
         this->next_x = double_vec( n_pts );
         this->next_y = double_vec( n_pts );
-        trajectory = std::make_pair(this->next_x, this->next_y);
     }
 
+    inline double_vec& getTrajectoryX() {return this->next_x;}
+    inline double_vec& getTrajectoryY() {return this->next_y;}
+    
     void setNextWaypoints();
-    vector_pair& computeNextTrajectory(
+    void computeNextTrajectory(
             const double_vec& prev_traj_x,
             const double_vec& prev_traj_y);
 
@@ -41,7 +42,6 @@ class TrajectoryPlanner
 
     double_vec ref_pts_x;
     double_vec ref_pts_y;
-    vector_pair trajectory;
 
     tk::spline tp_spline;
 

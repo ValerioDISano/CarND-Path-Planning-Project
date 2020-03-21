@@ -18,7 +18,7 @@ void TrajectoryPlanner::setNextWaypoints()
     }
 }
 
-vector_pair& TrajectoryPlanner::computeNextTrajectory(
+void TrajectoryPlanner::computeNextTrajectory(
         const double_vec& prev_traj_x,
         const double_vec& prev_traj_y
         )
@@ -46,6 +46,4 @@ vector_pair& TrajectoryPlanner::computeNextTrajectory(
        this->next_x.emplace_back(x_i);
        this->next_y.emplace_back(y_i);
    }
-
-   return this->trajectory;
 }
