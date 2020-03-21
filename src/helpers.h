@@ -157,13 +157,13 @@ vector<double> getXY(double s, double d, const vector<double> &maps_s,
 }
 
 template <typename T>
-T vectorMag2D(const T& x1, const T& x2) inline
+inline T vectorMag2D(const T& x1, const T& x2)
 {
     return sqrt(x1*x1 + x2*x2);
 }
 
 template <typename T>
-bool isContained(const T& x, const T& L, const T& H) inline
+inline bool isContained(const T& x, const T& L, const T& H)
 {
     return (x > L && x <= H);
 }
