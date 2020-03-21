@@ -8,8 +8,8 @@
 #include "spline.h"
 #include "behavior_planner.hpp"
 
-using double_vec = std::vector<double>
-using vector_pair = std::pair<double_vec&, double_vec&>
+using double_vec = std::vector<double>;
+using vector_pair = std::pair<double_vec&, double_vec&>;
 constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
 class TrajectoryPlanner
