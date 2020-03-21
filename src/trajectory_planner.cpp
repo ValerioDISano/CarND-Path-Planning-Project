@@ -28,13 +28,13 @@ vector_pair& TrajectoryPlanner::computeNextTrajectory(
    this->next_y.clear();
    this->next_y.reserve(this->n_pts_);
 
-   this->spline.set_points(this->ref_pts_x, this->ref_pts_y);
+   this->tp_spline.set_points(this->ref_pts_x, this->ref_pts_y);
    
    std::copy(prev_traj_x.begin(), prev_traj_x.end(), this->next_x.begin()); 
    std::copy(prev_traj_y.begin(), prev_traj_y.end(), this->next_y.begin()); 
    
    auto target_x = conf().targetX();
-   auto target_y = this->spline(target_x);
+   auto target_y = this->tp_spline(target_x);
    auto target_mag = vectorMag2D(target_x, target_y);
    auto target_speed = conf().currentSpeed();
    double N_pts = target_mag / ((0.02 * target_speed) / 2.24);
@@ -42,7 +42,7 @@ vector_pair& TrajectoryPlanner::computeNextTrajectory(
    for (auto i = 0; i < (this->n_pts_ - prev_traj_x.size()); i++)
    {
        auto x_i = target_x / N_pts;
-       auto y_i = this->spline(x_i);
+       auto y_i = this->tp_spline(x_i);
        this->next_x.emplace_back(x_i);
        this->next_y.emplace_back(y_i);
    }

@@ -43,7 +43,7 @@ class TrajectoryPlanner
     double_vec ref_pts_y;
     vector_pair trajectory;
 
-    tk::spline spline;
+    tk::spline tp_spline;
 
     size_t n_pts_; 
 
