@@ -1,5 +1,7 @@
 #include "behavior_planner.hpp"
 
+constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
+
 template <class SensorFusion>
 BehaviorPlanner::Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_data)
 {
@@ -10,7 +12,7 @@ BehaviorPlanner::Prediction BehaviorPlanner::predictionStep(const SensorFusion& 
         auto traffic_car_d = data[6];
         auto traffic_car_s = data[5];
 
-        int t_car_lane_id = Car::fromFrenet2LaneId(other_car_d);
+        int t_car_lane_id = Car::fromFrenet2LaneId(traffic_car_d);
 
         if (t_car_lane_id == -1) continue; //no traffic car close to our vehicle
         
