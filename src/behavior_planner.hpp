@@ -26,6 +26,8 @@ class BehaviorPlanner
           
           void SpeedUp() {this->planned_speedup_ += this->max_acc_;}
           void SlowDown() {this->planned_speedup_ -= this->max_acc_;}
+          void changeLaneToLeft() {this->lane_--;}
+          void changeLaneToRight() {this->lane_++;}
           void updateCarFrenetCoord(const double& s, const double& d)
           {
               this->car_s_ = s;

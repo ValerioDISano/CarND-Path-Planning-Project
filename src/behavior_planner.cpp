@@ -46,10 +46,10 @@ void BehaviorPlanner::computeBehavior() const
     // evaluate a takeover
         if (current_lane > 0 && !this->last_prediction.car_on_left)
         {   // Left
-            conf().currentLane()--;        
+            conf().changeLaneToLeft();        
         } else if (current_lane < 2 && !this->last_prediction.car_on_right)
         {   // Right
-            conf().currentLane()++;        
+            conf().changeLaneToRight();        
         }
 
     } else if (conf().currentSpeed() < conf().maxSpeed())  // evaluate to speedup
