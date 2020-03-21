@@ -5,10 +5,10 @@
 #include <vector>
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
-#include "helpers.h"
+//#include "helpers.h"
 #include "json.hpp"
 
-#include "behavior_planner.hpp"
+//#include "behavior_planner.hpp"
 #include "trajectory_planner.hpp"
 
 // for convenience
@@ -26,7 +26,6 @@ int main() {
   vector<double> map_waypoints_dx;
   vector<double> map_waypoints_dy;
   
-  constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance;
 
   // Waypoint map to read from
   string map_file_ = "../data/highway_map.csv";
