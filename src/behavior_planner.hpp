@@ -1,5 +1,5 @@
-#ifndef BEHAVIOR_PLANNER_HPP_H
-#define BEHAVIOR_PLANNER_HPP_H
+#ifndef BEHAVIOR_PLANNER_HPP_
+#define BEHAVIOR_PLANNER_HPP_
 
 #include "helpers.h"
 
@@ -24,8 +24,8 @@ class BehaviorPlanner
           inline const double& currentSpeed() const {return this->current_speed_;}
           inline const double& currentYaw() const {return this->car_yaw_;}
           
-          void SpeedUp() {this->planned_speedup_ += this->max_acc_;}
-          void SlowDown() {this->planned_speedup_ -= this->max_acc_;}
+          void speedUp() {this->planned_speedup_ += this->max_acc_;}
+          void slowDown() {this->planned_speedup_ -= this->max_acc_;}
           void changeLaneToLeft() {this->lane_--;}
           void changeLaneToRight() {this->lane_++;}
           void updateCarFrenetCoord(const double& s, const double& d)
