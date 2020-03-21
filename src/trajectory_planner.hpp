@@ -48,7 +48,7 @@ class TrajectoryPlanner
     size_t n_pts_; 
 
     double_vec next_x;
-    dobule_vec next_y;
+    double_vec next_y;
 
     double_vec& map_waypoints_x_;
     double_vec& map_waypoints_y_;
