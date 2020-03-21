@@ -170,7 +170,7 @@ inline bool isContained(const T& x, const T& L, const T& H)
 
 namespace Car
 {
-    std::unordered_map<unsigned int, std::pair<double, double> lane_boundaries {
+    std::unordered_map<unsigned int, std::pair<double, double>> lane_boundaries {
         {0, {0.0, 4.0}},
         {1, {4.0, 8.0}},
         {2, {8.0, 12.0}}
