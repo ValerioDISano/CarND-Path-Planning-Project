@@ -1,5 +1,5 @@
-#ifndef HELPERS_H
-#define HELPERS_H
+#ifndef HELPERS_H_
+#define HELPERS_H_
 
 #include <math.h>
 #include <string>
@@ -14,7 +14,7 @@ using std::vector;
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
 //   else the empty string "" will be returned.
-string hasData(string s) {
+inline string hasData(string s) {
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
   auto b2 = s.find_first_of("}");
@@ -33,16 +33,16 @@ string hasData(string s) {
 
 // For converting back and forth between radians and degrees.
 constexpr double pi() { return M_PI; }
-double deg2rad(double x) { return x * pi() / 180; }
-double rad2deg(double x) { return x * 180 / pi(); }
+inline double deg2rad(double x) { return x * pi() / 180; }
+inline double rad2deg(double x) { return x * 180 / pi(); }
 
 // Calculate distance between two points
-double distance(double x1, double y1, double x2, double y2) {
+inline double distance(double x1, double y1, double x2, double y2) {
   return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
 
 // Calculate closest waypoint to current x, y position
-int ClosestWaypoint(double x, double y, const vector<double> &maps_x, 
+inline int ClosestWaypoint(double x, double y, const vector<double> &maps_x, 
                     const vector<double> &maps_y) {
   double closestLen = 100000; //large number
   int closestWaypoint = 0;
@@ -61,7 +61,7 @@ int ClosestWaypoint(double x, double y, const vector<double> &maps_x,
 }
 
 // Returns next waypoint of the closest waypoint
-int NextWaypoint(double x, double y, double theta, const vector<double> &maps_x, 
+inline int NextWaypoint(double x, double y, double theta, const vector<double> &maps_x, 
                  const vector<double> &maps_y) {
   int closestWaypoint = ClosestWaypoint(x,y,maps_x,maps_y);
 
@@ -84,7 +84,7 @@ int NextWaypoint(double x, double y, double theta, const vector<double> &maps_x,
 }
 
 // Transform from Cartesian x,y coordinates to Frenet s,d coordinates
-vector<double> getFrenet(double x, double y, double theta, 
+inline vector<double> getFrenet(double x, double y, double theta, 
                          const vector<double> &maps_x, 
                          const vector<double> &maps_y) {
   int next_wp = NextWaypoint(x,y, theta, maps_x,maps_y);
@@ -129,7 +129,7 @@ vector<double> getFrenet(double x, double y, double theta,
 }
 
 // Transform from Frenet s,d coordinates to Cartesian x,y
-vector<double> getXY(double s, double d, const vector<double> &maps_s, 
+inline vector<double> getXY(double s, double d, const vector<double> &maps_s, 
                      const vector<double> &maps_x, 
                      const vector<double> &maps_y) {
   int prev_wp = -1;
@@ -170,13 +170,13 @@ inline bool isContained(const T& x, const T& L, const T& H)
 
 namespace Car
 {
-    std::unordered_map<unsigned int, std::pair<double, double>> lane_boundaries {
+    static std::unordered_map<unsigned int, std::pair<double, double>> lane_boundaries {
         {0, {0.0, 4.0}},
         {1, {4.0, 8.0}},
         {2, {8.0, 12.0}}
     };
 
-    int fromFrenet2LaneId(const double& d)
+    inline int fromFrenet2LaneId(const double& d)
     {
         int laneId;
         
