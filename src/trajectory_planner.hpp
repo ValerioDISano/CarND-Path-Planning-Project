@@ -2,7 +2,7 @@
 #define TRAJECTORY_PLANNER_HPP_
 
 #include <vector>
-#include <pair>
+#include <utility> // pair, make_pair
 #include <algorithm> //copy
 
 #include "spline.h"
