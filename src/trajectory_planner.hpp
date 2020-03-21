@@ -29,7 +29,7 @@ class TrajectoryPlanner
     {
         this->next_x (this->n_pts_);
         this->next_y (this->n_pts_);
-        trajectory = std::make_pair(this->next_x, this->next_y)
+        trajectory = std::make_pair(this->next_x, this->next_y);
     }
 
     void setNextWaypoints();
