@@ -1,7 +1,7 @@
 #include "behavior_planner.hpp"
 
 template <class SensorFusion>
-Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_data)
+BehaviorPlanner::Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_data)
 {
     Prediction pred;
 
@@ -36,7 +36,7 @@ Prediction BehaviorPlanner::predictionStep(const SensorFusion& sensor_fusion_dat
     return pred;
 }
 
-void BehaviorPlanner::computeBehavior()
+void BehaviorPlanner::computeBehavior() const
 {
     int current_lane = conf().currentLane();
     // target lane
