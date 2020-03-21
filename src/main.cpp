@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
 //#include "helpers.h"
@@ -26,6 +27,16 @@ int main() {
   vector<double> map_waypoints_dx;
   vector<double> map_waypoints_dy;
   
+  // BehaviorPlanner
+  auto behavior_planner = std::make_unique<BehaviorPlanner>();
+  // TrajectoryPlanner
+  auto trajectory_planner = std::make_unique<TrajectoryPlanner>(
+          map_waypoints_x,
+          map_waypoints_y,
+          map_waypoints_s
+          );
+
+  constexpr auto conf = &BehaviorPlanner::VehicleConfiguration::instance; 
 
   // Waypoint map to read from
   string map_file_ = "../data/highway_map.csv";
@@ -55,7 +66,9 @@ int main() {
   }
 
   h.onMessage([&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,
-               &map_waypoints_dx,&map_waypoints_dy]
+               &map_waypoints_dx,&map_waypoints_dy,
+               &behavior_planner,
+               &trajectory_planner]
               (uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -101,7 +114,24 @@ int main() {
            * TODO: define a path made up of (x,y) points that the car will visit
            *   sequentially every .02 seconds
            */
+        // Update Car status
+        conf().updateCarFrenetCoord(car_s, car_d);
+        conf().updateCarPose(car_x, car_y, car_yaw);
+        
+        // Compute car behavior for next iterations  
+        behavior_planner->predictionStep(sensor_fusion);
+        behavior_planner->computeBehavior();
 
+        // Compute trajectory
+        trajectory_planner->setNextWaypoints();
+        trajectory_planner->computeNextTrajectory
+            (
+                previous_path_x,
+                previous_path_y
+                );
+
+        next_x_vals = trajectory_planner->getTrajectoryX();
+        next_y_vals = trajectory_planner->getTrajectoryY();
 
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
