@@ -1,16 +1,16 @@
 #include "trajectory_planner.hpp"
 
-void TrajectoryPlanner::setNextwWaypoints()
+void TrajectoryPlanner::setNextWaypoints()
 {
     size_t n_waypoints = 3;
     double s_increment = 30.0;
-    for (auto& index = 0; index < n_waypoints; index++)
+    for (auto index = 0; index < n_waypoints; index++)
     {
-        auto wp = getXY(conf().currentS() + i*s_increment,
+        auto wp = getXY(conf().currentS() + index * s_increment,
                 conf().currentLane()*4 + 2,
-                this->map_waypoint_s_,
-                this->map_waypoint_x_,
-                this->map_waypoint_y_
+                this->map_waypoints_s_,
+                this->map_waypoints_x_,
+                this->map_waypoints_y_
                 );
         
         this->ref_pts_x.emplace_back(wp[0]);
