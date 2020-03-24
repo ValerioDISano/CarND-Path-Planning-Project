@@ -98,15 +98,23 @@ class BehaviorPlanner
             traffic_car_s += (double(prev_steps) * 0.02 * traffic_car_speed); 
             
             int relative_car_position = t_car_lane_id - conf().currentLane();
+            auto ego_car_s = conf().currentS();
+
             switch (relative_car_position)
             {
-                case 0: pred.car_ahead = (traffic_car_s > conf().currentS());
+                case 0: pred.car_ahead |= (traffic_car_s > ego_car_s) &&
+                        (traffic_car_s - ego_car_s < 30.0);
                         break;
-                case 1: pred.car_on_right = true;
+                case 1: pred.car_on_right |= isContained(ego_car_s,
+                                traffic_car_s - 30.0,
+                                traffic_car_s + 30.0);
                         break;
-                case -1: pred.car_on_left = true;
+                case -1: pred.car_on_left |= isContained(ego_car_s,
+                                 traffic_car_s - 30.0,
+                                 traffic_car_s + 30.0);
                         break;
                 default:
+                        std::cout << "Invalid realative car position!" << "\n";
                         break;
             }
         }
