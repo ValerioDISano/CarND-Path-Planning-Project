@@ -78,13 +78,29 @@ void TrajectoryPlanner::computeNextTrajectory(
    auto target_x = conf().targetX();
    auto target_y = this->tp_spline(target_x);
    auto target_mag = vectorMag2D(target_x, target_y);
-   auto target_speed = conf().currentSpeed();
-   double N_pts = target_mag / ((0.02 * target_speed) / 2.24);
+   static double target_speed = 0.0;
 
+   auto saturation = [](double& speed){
+       if (speed > conf().maxSpeed())
+        return conf().maxSpeed();
+       else
+        return speed;
+   };
+
+   double x_pre {0.0}
    for (auto i = 0; i < (this->n_pts_ - prev_traj_x.size()); i++)
    {
-       auto x_i = target_x / N_pts;
+       target_speed += conf().plannedSpeedUp();
+       target_speed = saturation(target_speed);
+       double N_pts = target_mag / ((0.02 * target_speed) / 2.24);
+       
+       auto x_i = x_pre + target_x / N_pts;
        auto y_i = this->tp_spline(x_i);
+       
+       x_pre = x_i;
+
+       conf().fromLocalToGlobalCoordinates(x_i, y_i);
+       
        this->next_x.emplace_back(x_i);
        this->next_y.emplace_back(y_i);
    }
