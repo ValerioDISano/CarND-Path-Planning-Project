@@ -45,6 +45,9 @@ class BehaviorPlanner
             this->car_y_ = y;
             this->car_yaw_ = yaw;
           }
+          
+          void fromLocalToGlobalCoordinates(double& local_x, double& local_y);
+          void fromGlobalToLocalCoordinates(double& global_x, double& global_y);
 
           static VehicleConfiguration& instance()
           {
