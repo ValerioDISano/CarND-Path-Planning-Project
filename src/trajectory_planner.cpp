@@ -1,7 +1,38 @@
 #include "trajectory_planner.hpp"
 
-void TrajectoryPlanner::setNextWaypoints()
+void TrajectoryPlanner::setNextWaypoints(
+        const double_vec& prev_traj_x,
+        const double_vec& prev_traj_y)
 {
+    this->ref_pts_x.clear();
+    this->ref_pts_y.clear();
+  
+    auto prev_size = prev_traj_x.size();
+    
+    if (prev_size < 2)
+    {
+        this->ref_pts_x.emplace_back(conf().currentX() - cos(conf().currentYaw()));
+        this->ref_pts_x.emplace_back(conf().currentX());
+        this->ref_pts_y.emplace_back(conf().currentY() - sin(conf().currentYaw()));
+        this->ref_pts_y.emplace_back(conf().currentY());
+
+    } else
+    {
+        std::copy(prev_traj_x.rbegin(), prev_traj_x.rbegin()+2,
+                std::back_inserter(this->ref_pts_x));
+        std::copy(prev_traj_y.rbegin(), prev_traj_y.rbegin()+2,
+                std::back_inserter(this->ref_pts_x));
+        
+        auto updated_yaw = atan2(
+                *this->ref_pts_x.end()-*(this->ref_pts_x.end()--),
+                *this->ref_pts_y.end()-*(this->ref_pts_y.end()--)
+                );
+
+        conf().updateCarPose(this->ref_pts_x.back(),
+                             this->ref_pts_y.back(),
+                             updated_yaw);
+    }
+
     size_t n_waypoints = 3;
     double s_increment = 30.0;
     for (auto index = 0; index < n_waypoints; index++)

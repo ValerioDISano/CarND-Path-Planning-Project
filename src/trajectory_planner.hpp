@@ -33,7 +33,9 @@ class TrajectoryPlanner
     inline double_vec& getTrajectoryX() {return this->next_x;}
     inline double_vec& getTrajectoryY() {return this->next_y;}
     
-    void setNextWaypoints();
+    void setNextWaypoints(
+            const double_vec& prev_traj_x,
+            const double_vec& prev_traj_y);
     void computeNextTrajectory(
             const double_vec& prev_traj_x,
             const double_vec& prev_traj_y);
