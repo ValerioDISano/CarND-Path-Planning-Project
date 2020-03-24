@@ -113,7 +113,10 @@ int main() {
            *   sequentially every .02 seconds
            */
         // Update Car status
-        conf().updateCarFrenetCoord(car_s, car_d);
+        prev_path_size != 0 ?
+            conf().updateCarFrenetCoord(end_path_s, car_d) :
+            conf().updateCarFrenetCoord(car_s, car_d);
+
         conf().updateCarPose(car_x, car_y, car_yaw);
         
         // Compute car behavior for next iterations  
