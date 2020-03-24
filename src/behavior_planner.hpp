@@ -19,6 +19,8 @@ class BehaviorPlanner
           inline const double& maxSpeed() const {return this->max_speed_;}
           inline const double& maxAcc() const {return this->max_acc_;}
           inline const double& currentS() const {return this->car_s_;}
+          inline const double& currentX() const {return this->car_x_;}
+          inline const double& currentY() const {return this->car_y_;}
           inline const double& currentD() const {return this->car_d_;}
           inline const int& currentLane() const {return this->lane_;}
           inline const double& targetX() const {return this->target_x_;}
