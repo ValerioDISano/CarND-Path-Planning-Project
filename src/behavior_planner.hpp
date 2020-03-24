@@ -79,7 +79,7 @@ class BehaviorPlanner
     } Prediction;
     
     template <class SensorFusion>
-    Prediction predictionStep(const SensorFusion& sensor_fusion_data)
+    Prediction predictionStep(const SensorFusion& sensor_fusion_data, const std::size_t& prev_steps)
     {
     Prediction pred;
 
@@ -94,8 +94,9 @@ class BehaviorPlanner
             
             auto other_car_speed = vectorMag2D(double(data[3]), double(data[4]));
 
-            // should estimate current s traffic car position
-            //
+            // estimate current s traffic car position
+            traffic_car_s += (double(prev_steps) * 0.02 * traffic_car_speed); 
+            
             int relative_car_position = t_car_lane_id - conf().currentLane();
             switch (relative_car_position)
             {
