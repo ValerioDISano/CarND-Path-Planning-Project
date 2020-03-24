@@ -1,6 +1,5 @@
 #include "behavior_planner.hpp"
 
-
 void BehaviorPlanner::computeBehavior() const
 {
     int current_lane = conf().currentLane();
@@ -14,13 +13,19 @@ void BehaviorPlanner::computeBehavior() const
         } else if (current_lane < 2 && !this->last_prediction.car_on_right)
         {   // Right
             conf().changeLaneToRight();        
+        } else
+        {
+            conf().slowDown();
         }
-    } else if (conf().currentSpeed() < conf().maxSpeed())  // evaluate to speedup
+    } else  // evaluate to speedup and to go back to the default lane
     {
-       conf().speedUp(); 
-    } else
-    {
-        conf().slowDown();
+       if (conf().currentSpeed() < conf().maxSpeed())
+            conf().speedUp();
+       if (( current_lane == 0 && !this->last_prediction.car_on_right ) ||
+               ( current_lane == 2 && !this->last_prediction.car_on_left ))
+       {
+            conf().defaultLane();
+       }
     }
 }
 
