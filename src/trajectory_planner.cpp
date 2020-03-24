@@ -47,6 +47,17 @@ void TrajectoryPlanner::setNextWaypoints(
         this->ref_pts_x.emplace_back(wp[0]);
         this->ref_pts_y.emplace_back(wp[1]);
     }
+    
+    // Coordinates transformation
+    auto xi = this->ref_pts_x.begin();
+    auto yi = this->ref_pts_y.begin();
+    while (xi != this->ref_pts_x.end() and yi != this->ref_pts_y.end())
+    {
+        auto& x = *xi++;
+        auto& y = *yi++;
+
+        conf().fromGlobalToLocalCoordinates(x, y);
+    }
 }
 
 void TrajectoryPlanner::computeNextTrajectory(
