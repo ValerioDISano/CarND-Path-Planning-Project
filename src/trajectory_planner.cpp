@@ -72,8 +72,8 @@ void TrajectoryPlanner::computeNextTrajectory(
 
    this->tp_spline.set_points(this->ref_pts_x, this->ref_pts_y);
    
-   std::copy(prev_traj_x.begin(), prev_traj_x.end(), this->next_x.begin()); 
-   std::copy(prev_traj_y.begin(), prev_traj_y.end(), this->next_y.begin()); 
+   std::copy(prev_traj_x.begin(), prev_traj_x.end(), std::back_inserter(this->next_x)); 
+   std::copy(prev_traj_y.begin(), prev_traj_y.end(), std::back_inserter(this->next_y)); 
    
    auto target_x = conf().targetX();
    auto target_y = this->tp_spline(target_x);
