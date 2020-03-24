@@ -96,7 +96,7 @@ class BehaviorPlanner
 
             if (t_car_lane_id == -1) continue; //no traffic car close to our vehicle
             
-            auto other_car_speed = vectorMag2D(double(data[3]), double(data[4]));
+            auto traffic_car_speed = vectorMag2D(double(data[3]), double(data[4]));
 
             // estimate current s traffic car position
             traffic_car_s += (double(prev_steps) * 0.02 * traffic_car_speed); 
