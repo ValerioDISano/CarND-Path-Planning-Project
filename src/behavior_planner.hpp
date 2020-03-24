@@ -1,7 +1,6 @@
 #ifndef BEHAVIOR_PLANNER_HPP_
 #define BEHAVIOR_PLANNER_HPP_
 
-#include <iostream>
 #include "helpers.h"
 
 class BehaviorPlanner
@@ -16,7 +15,7 @@ class BehaviorPlanner
           VehicleConfiguration& operator=(const VehicleConfiguration&) = delete;
           VehicleConfiguration& operator=(VehicleConfiguration&&) = delete;
 
-          inline const double& maxSpeed() const {return this->max_speed_;}
+          inline const double maxSpeed() const {return this->max_speed_;}
           inline const double& maxAcc() const {return this->max_acc_;}
           inline const double& currentS() const {return this->car_s_;}
           inline const double& currentX() const {return this->car_x_;}
@@ -88,7 +87,7 @@ class BehaviorPlanner
     template <class SensorFusion>
     Prediction predictionStep(const SensorFusion& sensor_fusion_data, const std::size_t& prev_steps)
     {
-    Prediction pred;
+    Prediction pred {};
 
         for(const auto& data : sensor_fusion_data)
         {
@@ -121,7 +120,6 @@ class BehaviorPlanner
                                  traffic_car_s + 30.0);
                         break;
                 default:
-                        std::cout << "Invalid realative car position!" << "\n";
                         break;
             }
         }
