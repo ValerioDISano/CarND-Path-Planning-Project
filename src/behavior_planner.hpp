@@ -70,8 +70,8 @@ class BehaviorPlanner
           double car_yaw_;
           double planned_speedup_ {0.0};
           double current_speed_ {0.0};
-          const double target_x_ {0.0};
-          int lane_;
+          const double target_x_ {30.0};
+          int lane_ {1};
     };
 
     typedef struct Prediction
