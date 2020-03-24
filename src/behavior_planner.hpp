@@ -1,8 +1,8 @@
 #ifndef BEHAVIOR_PLANNER_HPP_
 #define BEHAVIOR_PLANNER_HPP_
 
+#include <iostream>
 #include "helpers.h"
-
 
 class BehaviorPlanner
 {
