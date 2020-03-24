@@ -102,6 +102,7 @@ int main() {
           // Sensor Fusion Data, a list of all other cars on the same side 
           //   of the road.
           auto sensor_fusion = j[1]["sensor_fusion"];
+          auto prev_path_size = previous_path_x.size();
 
           json msgJson;
 
@@ -120,7 +121,7 @@ int main() {
         conf().updateCarPose(car_x, car_y, car_yaw);
         
         // Compute car behavior for next iterations  
-        behavior_planner->predictionStep(sensor_fusion);
+        behavior_planner->predictionStep(sensor_fusion, prev_path_size);
         behavior_planner->computeBehavior();
 
         // Compute trajectory
