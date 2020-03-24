@@ -87,7 +87,7 @@ void TrajectoryPlanner::computeNextTrajectory(
         return speed;
    };
 
-   double x_pre {0.0}
+   double x_pre {0.0};
    for (auto i = 0; i < (this->n_pts_ - prev_traj_x.size()); i++)
    {
        target_speed += conf().plannedSpeedUp();
