@@ -118,7 +118,7 @@ int main() {
             conf().updateCarFrenetCoord(end_path_s, car_d) :
             conf().updateCarFrenetCoord(car_s, car_d);
 
-        conf().updateCarPose(car_x, car_y, car_yaw);
+        conf().updateCarPose(car_x, car_y, deg2rad(car_yaw));
         
         // Compute car behavior for next iterations  
         behavior_planner->predictionStep(sensor_fusion, prev_path_size);
