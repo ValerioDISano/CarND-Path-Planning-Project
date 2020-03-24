@@ -125,11 +125,13 @@ int main() {
         behavior_planner->computeBehavior();
 
         // Compute trajectory
-        trajectory_planner->setNextWaypoints();
-        trajectory_planner->computeNextTrajectory
-            (
-                previous_path_x,
-                previous_path_y
+        trajectory_planner->setNextWaypoints(
+                    previous_path_x,
+                    previous_path_y
+                );
+        trajectory_planner->computeNextTrajectory(
+                    previous_path_x,
+                    previous_path_y
                 );
 
         next_x_vals = trajectory_planner->getTrajectoryX();
