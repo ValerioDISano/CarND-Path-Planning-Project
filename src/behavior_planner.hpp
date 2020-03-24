@@ -27,8 +27,8 @@ class BehaviorPlanner
           inline const double& currentSpeed() const {return this->current_speed_;}
           inline const double& currentYaw() const {return this->car_yaw_;}
           
-          void speedUp() {this->planned_speedup_ += this->max_acc_;}
-          void slowDown() {this->planned_speedup_ -= this->max_acc_;}
+          void speedUp() {this->planned_speedup_ = this->max_acc_;}
+          void slowDown() {this->planned_speedup_ = -this->max_acc_;}
           void changeLaneToLeft() {this->lane_--;}
           void changeLaneToRight() {this->lane_++;}
           void defaultLane() {this->lane_ = 1;}
@@ -60,7 +60,7 @@ class BehaviorPlanner
       private:
           VehicleConfiguration() {;};
           
-          const double max_speed_ {40.0};
+          const double max_speed_ {49.9};
           const double max_acc_ {0.2};
 
           double car_s_;
