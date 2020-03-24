@@ -18,16 +18,15 @@ void TrajectoryPlanner::setNextWaypoints(
 
     } else
     {
-        std::copy(prev_traj_x.rbegin(), prev_traj_x.rbegin()+2,
+        std::copy(prev_traj_x.end()-2, prev_traj_x.end(),
                 std::back_inserter(this->ref_pts_x));
-        std::copy(prev_traj_y.rbegin(), prev_traj_y.rbegin()+2,
-                std::back_inserter(this->ref_pts_x));
-        
-        auto updated_yaw = atan2(
-                *this->ref_pts_x.end()-*(this->ref_pts_x.end()--),
-                *this->ref_pts_y.end()-*(this->ref_pts_y.end()--)
-                );
+        std::copy(prev_traj_y.end()-2, prev_traj_y.end(),
+                std::back_inserter(this->ref_pts_y));
 
+        auto updated_yaw = atan2(
+                this->ref_pts_y.back()-this->ref_pts_y.rbegin()[1],
+                this->ref_pts_x.back()-this->ref_pts_x.rbegin()[1]
+                );
         conf().updateCarPose(this->ref_pts_x.back(),
                              this->ref_pts_y.back(),
                              updated_yaw);
@@ -37,7 +36,7 @@ void TrajectoryPlanner::setNextWaypoints(
     double s_increment = 30.0;
     for (auto index = 0; index < n_waypoints; index++)
     {
-        auto wp = getXY(conf().currentS() + index * s_increment,
+        auto wp = getXY(conf().currentS() + double(index + 1) * s_increment,
                 conf().currentLane()*4 + 2,
                 this->map_waypoints_s_,
                 this->map_waypoints_x_,
