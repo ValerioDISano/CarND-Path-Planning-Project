@@ -26,6 +26,7 @@ class BehaviorPlanner
           inline const double& targetX() const {return this->target_x_;}
           inline const double& currentSpeed() const {return this->current_speed_;}
           inline const double& currentYaw() const {return this->car_yaw_;}
+          inline const double& plannedSpeedUp() const {return this->planned_speedup_;}
           
           void speedUp() {this->planned_speedup_ = this->max_acc_;}
           void slowDown() {this->planned_speedup_ = -this->max_acc_;}
